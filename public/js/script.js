@@ -53,7 +53,7 @@ const findRamensById = async () => {
 //findRamensById();
 
 
-
+//MODAL
 
 async function abrirModalCadastro(id = null) {
   if (id != null) {
@@ -78,13 +78,14 @@ async function abrirModalCadastro(id = null) {
 function fecharModalCadastro() {
   document.querySelector(".modal-overlay").style.display = "none";
 
+  document.querySelector("#id").value = null;
   document.querySelector("#sabor").value = "";
   document.querySelector("#preco").value = 0;
   document.querySelector("#descricao").value = "";
   document.querySelector("#foto").value = "";
 }
 
-
+//CREATE
 
 async function createRamen() {
   const id = document.querySelector("#id").value;
@@ -125,6 +126,7 @@ async function createRamen() {
       <div class="RamenListaItem__preco">R$ ${novoRamen.preco}</div>
       <div class="RamenListaItem__descricao">${novoRamen.descricao}</div>
       <button class="Acoes__apagar btn" onclick="abrirModalDelete(${novoRamen.id})">Apagar</button>
+      <button id="button-form-modal" type="button" class="default-button" onclick="abrirModalCadastro(${novoRamen.id})">Alterar</button>
 
     </div>
       <img class="RamenListaItem__foto" src=${
