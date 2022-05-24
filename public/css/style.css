@@ -362,3 +362,56 @@ div#ramen-escolhida-input-espaco {
   display: flex;
   justify-content: flex-end;
 }
+
+
+
+
+/******delete*********/
+
+.modal-body-delete{
+  display: flex;
+  flex-wrap: wrap;
+}
+.modal-body-delete p{
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.btns_delete{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.btn_delete{
+  background-color: transparent;
+  padding: .5rem;
+  font-size: 1.2rem;
+  border-radius: .5rem;
+  width: 30%;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn_delete_no{
+  color: #ff0000;
+  border: solid 1px #ff0000;
+}
+
+.btn_delete_no:hover{
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.btn_delete_yes{
+  color: #00b309;
+  border: solid 1px #00b309;
+}
+
+.btn_delete_yes:hover{
+  background-color: #00b309;
+  color: #fff;
+}

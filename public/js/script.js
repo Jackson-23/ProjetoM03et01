@@ -13,6 +13,7 @@ async function findAllRamens() {
             <div class="RamenListaItem__sabor">${ramens.sabor}</div>
             <div class="RamenListaItem__preco">R$ ${ramens.preco.toFixed(2)}</div>
             <div class="RamenListaItem__descricao">${ramens.descricao}</div>
+            <button class="Acoes__apagar btn" onclick="abrirModalDelete(${ramens.id})">Apagar</button>
           </div>
             <img class="RamenListaItem__foto" src=${ramens.foto} alt=${`Ramen de ${ramens.sabor}`} />
           </div>`
@@ -48,7 +49,7 @@ const findRamensById = async () => {
   </div>`;
 };
 
-findRamensById();
+//findRamensById();
 
 
 
@@ -69,7 +70,7 @@ function fecharModalCadastro() {
 
 
 async function createRamen() {
-  const id = document.getElementById("id").value;
+  const id = document.querySelector("#id").value;
   const sabor = document.querySelector("#sabor").value;
   const preco = document.querySelector("#preco").value;
   const descricao = document.querySelector("#descricao").value;
@@ -104,8 +105,10 @@ async function createRamen() {
   const html = `<div class="RamenListaItem">
     <div>
       <div class="RamenListaItem__sabor">${novoRamen.sabor}</div>
-      <div class="RamenListaItem__preco">R$ ${novoRamen.preco.toFixed(2)}</div>
+      <div class="RamenListaItem__preco">R$ ${novoRamen.preco}</div>
       <div class="RamenListaItem__descricao">${novoRamen.descricao}</div>
+      <button class="Acoes__apagar btn" onclick="abrirModalDelete(${ramens.id})">Apagar</button>
+
     </div>
       <img class="RamenListaItem__foto" src=${
         novoRamen.foto
@@ -118,12 +121,10 @@ async function createRamen() {
       document.getElementById("ramenList").insertAdjacentHTML("beforeend", html);
     }
 
-    document.getElementById("ramenList").insertAdjacentHTML("beforeend", html);
-
     fecharModalCadastro();
 };
 
-createRamen();
+//createRamen();
 
 
 
@@ -152,3 +153,35 @@ async function abrirModal(id = null) {
 
   document.querySelector(".modal-overlay").style.display = "flex";
 }
+
+
+//DELETE
+
+function abrirModalDelete(id) {
+  document.querySelector("#overlay-delete").style.display = "flex";
+
+  const btnSim = document.querySelector(".btn_delete_yes")
+
+  btnSim.addEventListener("click", function() {
+    deleteRamen(id);
+  })
+}
+
+function fecharModalDelete() {
+  document.querySelector("#overlay-delete").style.display = "none";
+}
+
+const deleteRamen = async (id) => {
+  const response = await fetch(`${baseUrl}/delete/${id}`, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+  });
+  const result = await response.json();
+  alert(result.message)
+  document.getElementById("ramenList").innerHTML = ""
+  findAllRamens();
+  fecharModalDelete();
+};
