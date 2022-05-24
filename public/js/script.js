@@ -11,9 +11,10 @@ async function findAllRamens() {
           `<div class="RamenListaItem">
           <div>
             <div class="RamenListaItem__sabor">${ramens.sabor}</div>
-            <div class="RamenListaItem__preco">R$ ${ramens.preco.toFixed(2)}</div>
+            <div class="RamenListaItem__preco">R$ ${ramens.preco/*.toFixed(2)*/}</div>
             <div class="RamenListaItem__descricao">${ramens.descricao}</div>
             <button class="Acoes__apagar btn" onclick="abrirModalDelete(${ramens.id})">Apagar</button>
+            <button id="button-form-modal" type="button" class="default-button" onclick="abrirModalCadastro(${ramens.id})">Alterar</button>
           </div>
             <img class="RamenListaItem__foto" src=${ramens.foto} alt=${`Ramen de ${ramens.sabor}`} />
           </div>`
@@ -54,7 +55,23 @@ const findRamensById = async () => {
 
 
 
-function abrirModalCadastro() {
+async function abrirModalCadastro(id = null) {
+  if (id != null) {
+    document.querySelector("#title-header-modal").innerText = "Atualizar um Ramen";
+    document.querySelector("#button-form-modal").innerText = "Atualizar";
+
+    const response = await fetch(`${baseUrl}/find-ramens/${id}`);
+    const ramen = await response.json();
+
+    document.querySelector("#sabor").value = ramen.sabor;
+    document.querySelector("#preco").value = ramen.preco;
+    document.querySelector("#descricao").value = ramen.descricao;
+    document.querySelector("#foto").value = ramen.foto;
+    document.querySelector("#id").value = ramen.id;
+  } else {
+    document.querySelector("#title-header-modal").innerText = "Cadastrar uma Ramen";
+    document.querySelector("#button-form-modal").innerText = "Cadastrar";
+  }
   document.querySelector(".modal-overlay").style.display = "flex";
 }
 
@@ -107,7 +124,7 @@ async function createRamen() {
       <div class="RamenListaItem__sabor">${novoRamen.sabor}</div>
       <div class="RamenListaItem__preco">R$ ${novoRamen.preco}</div>
       <div class="RamenListaItem__descricao">${novoRamen.descricao}</div>
-      <button class="Acoes__apagar btn" onclick="abrirModalDelete(${ramens.id})">Apagar</button>
+      <button class="Acoes__apagar btn" onclick="abrirModalDelete(${novoRamen.id})">Apagar</button>
 
     </div>
       <img class="RamenListaItem__foto" src=${
@@ -116,7 +133,9 @@ async function createRamen() {
     </div>`;
 
     if (modoEdicaoAtivado) {
-      document.getElementById(`RamenListaItem_${id}`).outerHTML = html;
+      document.getElementById(`RamenListaItem__${id}`)/*.outerHTML = html*/;
+      document.getElementById("ramenList").innerHTML = "";
+      findAllRamens();
     } else {
       document.getElementById("ramenList").insertAdjacentHTML("beforeend", html);
     }
@@ -131,28 +150,7 @@ async function createRamen() {
 
 
 
-async function abrirModal(id = null) {
-  if (id != null) {
-    document.querySelector("#title-header-modal").innerText =
-      "Atualizar um Ramen";
-    document.querySelector("#button-form-modal").innerText = "Atualizar";
 
-    const response = await fetch(`${baseURL}/ramen/${id}`);
-    const ramen = await response.json();
-
-    document.querySelector("#sabor").value = ramen.sabor;
-    document.querySelector("#preco").value = ramen.preco;
-    document.querySelector("#descricao").value = ramen.descricao;
-    document.querySelector("#foto").value = ramen.foto;
-    document.querySelector("#id").value = ramen.id;
-  } else {
-    document.querySelector("#title-header-modal").innerText =
-      "Cadastrar uma Ramen";
-    document.querySelector("#button-form-modal").innerText = "Cadastrar";
-  }
-
-  document.querySelector(".modal-overlay").style.display = "flex";
-}
 
 
 //DELETE
@@ -180,7 +178,6 @@ const deleteRamen = async (id) => {
     mode: "cors",
   });
   const result = await response.json();
-  alert(result.message)
   document.getElementById("ramenList").innerHTML = ""
   findAllRamens();
   fecharModalDelete();
