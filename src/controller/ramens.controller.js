@@ -5,33 +5,104 @@ import {
   updateRamenfunction,
   deleteRamenfunction
 } from '../services/ramens.service.js';
+import mongoose from 'mongoose';
 
+//FIND ALL
 export const GetfindAllRamens = async (req, res) => {
-  const ramens = findAllRamensService();
+  const ramens = await findAllRamensService();
   res.send(ramens);
 };
 
+//FIND BY ID
 export const GetfindRamensById = async (req, res) => {
-  const parametroNumber = Number(req.params.id);
-  const ramens = findRamensByIdService(parametroNumber);
-  res.send(ramens);
+  const parametroNumber = req.params.id;
+
+  console.log("oi1");
+  if(!mongoose.Types.ObjectId.isValid(parametroNumber)){
+    console.log("oi2");
+    return res.status(400).send({ message: 'ID inválido!' });  
+  }
+  console.log("oi3");
+  const chosenRamen = await findRamensByIdService(parametroNumber);
+
+  if (!chosenRamen) {
+    return res.status(404).send({ message: 'Ramen não encontrado!' });
+  }
+  console.log("oi4");
+  res.send(chosenRamen);
 };
 
+//CREATE
 export const createRamen = async (req, res) => {
   const ramen = req.body;
-  const newRamen = createRamenfunction(ramen);
+
+  if (
+    !ramen ||
+    !ramen.sabor ||
+    !ramen.descricao ||
+    !ramen.foto ||
+    !ramen.preco
+  ) {
+    return res.status(400).send({
+      message:
+        'Você não preencheu todos os dados para adicionar um novo ramen ao cardápio!',
+    });
+  }
+
+  const newRamen = await createRamenfunction(ramen);
   res.send(newRamen);
 };
 
+//UPDATE
 export const updateRamen = async (req, res) => {
-  const idParam = +req.params.id;
+  const idParam = req.params.id;
   const ramenEdit = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(idParam)) {
+    res.status(400).send({ message: 'ID inválido!' });
+    return;
+  }
+
+  const chosenRamen = await findRamensByIdService(idParam);
+
+  if (!chosenRamen) {
+    return res.status(404).send({ message: 'Ramen não encontrado!' });
+  }
+
+  if (
+    !ramenEdit ||
+    !ramenEdit.sabor ||
+    !ramenEdit.descricao ||
+    !ramenEdit.foto ||
+    !ramenEdit.preco
+  ) {
+    return res.status(400).send({
+      message: 'Você não preencheu todos os dados para editar o ramen!',
+    });
+  }
+
+
   const updatedRamen = updateRamenfunction(idParam, ramenEdit);
   res.send(updatedRamen);
+
+
 };
 
+//DELETE
 export const deleteRamen = async (req, res) => {
   const idParam = req.params.id;
-  deleteRamenfunction(idParam);
+
+  if (!mongoose.Types.ObjectId.isValid(idParam)) {
+    res.status(400).send({ message: 'ID inválido!' });
+    return;
+  }
+
+  const chosenRamen = await findPaletaByIdService(idParam);
+
+  if (!chosenRamen) {
+    return res.status(404).send({ message: 'Ramen não encontrado!' });
+  }
+
+  await deleteRamenfunction(idParam);
   res.send({ message: 'Ramen deletado com sucesso!' });
 };

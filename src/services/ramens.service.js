@@ -1,55 +1,30 @@
-//Fake Data Base
-const ramens = [
-  {
-    id: 1,
-    sabor: 'Ramen Classic',
-    descricao:
-      'Quam vulputate dignissim suspendisse in est ante in nibh mauris.',
-    foto: 'assets/images/shoyu-ramen.jpg',
-    preco: 29.9,
-  },
-  {
-    id: 2,
-    sabor: 'Ramen Raiz',
-    descricao:
-      'Quam vulputate dignissim suspendisse in est ante in nibh mauris.',
-    foto: 'assets/images/misso-ramen.jpg',
-    preco: 25.0,
-  },
-  {
-    id: 3,
-    sabor: 'Ramen Nutella',
-    descricao:
-      'Quam vulputate dignissim suspendisse in est ante in nibh mauris.',
-    foto: 'assets/images/tantanmen.jpg',
-    preco: 27.0,
-  },
-];
+import { Ramen } from '../models/Ramen.js' ;
+const Ramen1 = Ramen;
 
 //funtions
-export const findAllRamensService = () => {
+export const findAllRamensService = async () => {
+  const ramens = await Ramen1.find();
   return ramens;
 };
 
-export const findRamensByIdService = (id) => {
-  return ramens.find((ramens) => ramens.id == id);
+export const findRamensByIdService = async (id) => {
+  console.log("oi5");
+  const ramens = await Ramen1.findById((id));
+  console.log("oi6")
+  return (ramens);
 };
 
-export const createRamenfunction = (newRamen) => {
-    const newId = ramens.length + 1;
-    newRamen.id = newId;
-    ramens.push(newRamen);
-    return newRamen;
+export const createRamenfunction = async (newRamen) => {
+  const ramenNovo = await Ramen1.create(newRamen)
+  return ramenNovo;
 };
 
-export const updateRamenfunction = (id, ramenEdited) => {
-    ramenEdited['id'] = id;
-    const ramenIndex = ramens.findIndex((ramen) => ramen.id == id);
-    ramens[ramenIndex] = ramenEdited;
-    return ramenEdited;
+export const updateRamenfunction = async (id, ramenEdited) => {
+
+    const ramenModificada = await Ramen1.findByIdAndUpdate(id, ramenEdited);
+    return ramenModificada;
 };
 
-export const deleteRamenfunction = (id) => {
-    const ramenIndex = ramens.findIndex((ramen) => ramen.id == id);
-    return ramens.splice(ramenIndex, 1);
+export const deleteRamenfunction = async (id) => {
+    return await Ramen1.findByIdAndDelete(id);
 };

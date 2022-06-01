@@ -13,8 +13,8 @@ async function findAllRamens() {
             <div class="RamenListaItem__sabor">${ramens.sabor}</div>
             <div class="RamenListaItem__preco">R$ ${ramens.preco/*.toFixed(2)*/}</div>
             <div class="RamenListaItem__descricao">${ramens.descricao}</div>
-            <button class="Acoes__apagar btn" onclick="abrirModalDelete(${ramens.id})">Apagar</button>
-            <button id="button-form-modal" type="button" class="default-button" onclick="abrirModalCadastro(${ramens.id})">Alterar</button>
+            <button class="Acoes__apagar btn" onclick="abrirModalDelete('${ramens._id}')">Apagar</button>
+            <button id="button-form-modal" type="button" class="default-button" onclick="abrirModalCadastro('${ramens._id}')">Alterar</button>
           </div>
             <img class="RamenListaItem__foto" src=${ramens.foto} alt=${`Ramen de ${ramens.sabor}`} />
           </div>`
@@ -125,8 +125,8 @@ async function createRamen() {
       <div class="RamenListaItem__sabor">${novoRamen.sabor}</div>
       <div class="RamenListaItem__preco">R$ ${novoRamen.preco}</div>
       <div class="RamenListaItem__descricao">${novoRamen.descricao}</div>
-      <button class="Acoes__apagar btn" onclick="abrirModalDelete(${novoRamen.id})">Apagar</button>
-      <button id="button-form-modal" type="button" class="default-button" onclick="abrirModalCadastro(${novoRamen.id})">Alterar</button>
+      <button class="Acoes__apagar btn" onclick="abrirModalDelete('${novoRamen._id}')">Apagar</button>
+      <button id="button-form-modal" type="button" class="default-button" onclick="abrirModalCadastro('${novoRamen._id}')">Alterar</button>
 
     </div>
       <img class="RamenListaItem__foto" src=${

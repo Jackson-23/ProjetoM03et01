@@ -1,0 +1,24 @@
+[
+      {
+
+        "sabor": "Ramen Classic",
+        "descricao": "Quam vulputate dignissim suspendisse in est ante in nibh mauris.",
+        "foto": "assets/images/shoyu-ramen.jpg",
+        "preco": 29.9
+      },
+      {
+
+        "sabor": "Ramen Raiz",
+        "descricao":"Quam vulputate dignissim suspendisse in est ante in nibh mauris.",
+        "foto": "assets/images/misso-ramen.jpg",
+        "preco": 25.0
+      },
+      {
+
+        "sabor": "Ramen Nutella",
+        "descricao":"Quam vulputate dignissim suspendisse in est ante in nibh mauris.",
+        "foto": "assets/images/tantanmen.jpg",
+        "preco": 27.0
+      }
+    ]
+    
