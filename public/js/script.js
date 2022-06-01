@@ -55,19 +55,19 @@ const findRamensById = async () => {
 
 //MODAL
 
-async function abrirModalCadastro(id = null) {
-  if (id != null) {
+async function abrirModalCadastro(id = "") {
+  if (id != "") {
     document.querySelector("#title-header-modal").innerText = "Atualizar um Ramen";
     document.querySelector("#button-form-modal").innerText = "Atualizar";
-
     const response = await fetch(`${baseUrl}/find-ramens/${id}`);
     const ramen = await response.json();
-
+    
     document.querySelector("#sabor").value = ramen.sabor;
     document.querySelector("#preco").value = ramen.preco;
     document.querySelector("#descricao").value = ramen.descricao;
     document.querySelector("#foto").value = ramen.foto;
-    document.querySelector("#id").value = ramen.id;
+    document.querySelector("#id").value = ramen._id;
+
   } else {
     document.querySelector("#title-header-modal").innerText = "Cadastrar uma Ramen";
     document.querySelector("#button-form-modal").innerText = "Cadastrar";
@@ -83,6 +83,7 @@ function fecharModalCadastro() {
   document.querySelector("#preco").value = 0;
   document.querySelector("#descricao").value = "";
   document.querySelector("#foto").value = "";
+
 }
 
 //CREATE
@@ -102,8 +103,9 @@ async function createRamen() {
     foto,
   };
 
-
-  const modoEdicaoAtivado = id > 0;
+//alterar
+  const modoEdicaoAtivado = id != "";
+  console.log("id no modal" + id);
 
   const endpoint = baseUrl + (modoEdicaoAtivado ? `/update/${id}` : '/create');
 
@@ -125,8 +127,8 @@ async function createRamen() {
       <div class="RamenListaItem__sabor">${novoRamen.sabor}</div>
       <div class="RamenListaItem__preco">R$ ${novoRamen.preco}</div>
       <div class="RamenListaItem__descricao">${novoRamen.descricao}</div>
-      <button class="Acoes__apagar btn" onclick="abrirModalDelete('${novoRamen._id}')">Apagar</button>
-      <button id="button-form-modal" type="button" class="default-button" onclick="abrirModalCadastro('${novoRamen._id}')">Alterar</button>
+      <button class="RamenListaButton__ ApagarButton" onclick="abrirModalDelete('${novoRamen._id}')">Apagar</button>
+      <button id="button-form-modal" type="button" class="RamenListaButton_ AlterarButton" onclick="abrirModalCadastro('${novoRamen._id}')">Alterar</button>
 
     </div>
       <img class="RamenListaItem__foto" src=${
@@ -137,11 +139,11 @@ async function createRamen() {
     if (modoEdicaoAtivado) {
       document.getElementById(`RamenListaItem__${id}`)/*.outerHTML = html*/;
       document.getElementById("ramenList").innerHTML = "";
-      findAllRamens();
+      
     } else {
       document.getElementById("ramenList").insertAdjacentHTML("beforeend", html);
     }
-
+    document.location.reload(true);
     fecharModalCadastro();
 };
 
@@ -180,7 +182,6 @@ const deleteRamen = async (id) => {
     mode: "cors",
   });
   const result = await response.json();
-  document.getElementById("ramenList").innerHTML = ""
-  findAllRamens();
+  document.location.reload(true);
   fecharModalDelete();
 };

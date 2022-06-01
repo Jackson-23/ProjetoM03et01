@@ -20,7 +20,7 @@ export const createRamenfunction = async (newRamen) => {
 };
 
 export const updateRamenfunction = async (id, ramenEdited) => {
-
+    console.log("up02");
     const ramenModificada = await Ramen1.findByIdAndUpdate(id, ramenEdited);
     return ramenModificada;
 };

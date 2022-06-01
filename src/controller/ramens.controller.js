@@ -57,11 +57,13 @@ export const createRamen = async (req, res) => {
 export const updateRamen = async (req, res) => {
   const idParam = req.params.id;
   const ramenEdit = req.body;
-
+  console.log("updatecon");
+  console.log(idParam);
   if (!mongoose.Types.ObjectId.isValid(idParam)) {
     res.status(400).send({ message: 'ID inválido!' });
     return;
   }
+
 
   const chosenRamen = await findRamensByIdService(idParam);
 
@@ -81,7 +83,6 @@ export const updateRamen = async (req, res) => {
     });
   }
 
-
   const updatedRamen = updateRamenfunction(idParam, ramenEdit);
   res.send(updatedRamen);
 
@@ -97,7 +98,7 @@ export const deleteRamen = async (req, res) => {
     return;
   }
 
-  const chosenRamen = await findPaletaByIdService(idParam);
+  const chosenRamen = await findRamensByIdService(idParam);
 
   if (!chosenRamen) {
     return res.status(404).send({ message: 'Ramen não encontrado!' });
