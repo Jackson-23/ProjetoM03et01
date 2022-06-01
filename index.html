@@ -1,109 +1,129 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/css/style.css" />
     <title>Top Ramen</title>
-</head>
-<body>
-
-
+  </head>
+  <body>
     <div class="Home">
-
-
-        <div class="Home__header Header">
-            <div class="row">
-              <div class="Header__logo Logo">
-                <img
-                  src="assets/images/logo.webp"
-                  width="70px"
-                  alt="Logo Ramen"
-                  class="Logo__icone"
-                />
-                <span class="Logo__titulo"> Top Ramen </span>
-              </div>
-    
-              <div class="Header__opcoes Opcoes">
-                <div class="Opcoes__sacola Sacola">
-                  <img
-                    src="assets/images/sacola.svg"
-                    width="40px"
-                    class="Sacola__icone"
-                    alt="Sacola de compras"
-                  />
-                </div>
-              </div>
-            </div>
+      <div class="Home__header Header">
+        <div class="row">
+          <div class="Header__logo Logo">
+            <img
+              src="assets/images/logo.webp"
+              width="70px"
+              alt="Logo Ramen"
+              class="Logo__icone"
+            />
+            <span class="Logo__titulo"> Top Ramen </span>
           </div>
 
-        <h2>Pesquisar Ramen</h2>
-        <div class="ramen-escolhida-espaco">
-            <div id="ramen-escolhida-input-espaco">
-                <input type="number" id="idRamen" placeholder="Digite o ID do ramen e clique em 'Escolher'" />
-                <button id="idRamenButton" onclick="findRamensById()">ESCOLHER</button>
+          <div class="Header__opcoes Opcoes">
+            <div class="Opcoes__sacola Sacola">
+              <img
+                src="assets/images/sacola.svg"
+                width="40px"
+                class="Sacola__icone"
+                alt="Sacola de compras"
+              />
             </div>
-            <div id="ramenEscolhida">
+          </div>
+        </div>
+      </div>
 
-            </div>
+      <div class="ramen-escolhida-espaco">
+        <div id="ramen-escolhida-input-espaco">
+          <input
+            id="idRamen"
+            placeholder="Digite o sabor Ramen"
+          />
+          <button class="RamenButton ButtonProcurar" onclick="findRamensById()">
+            Procurar
+          </button>
+          <button
+          type="button"
+          class="RamenButton ButtonCadastrar"
+          onclick="abrirModalCadastro()"
+        >
+          Cadastrar Novo Ramen
+        </button>
         </div>
 
 
-        <section class="button-modal-create">
-          <button type="button" class="default-button" onclick="abrirModalCadastro()">Cadastrar Ramen</button>
-      </section>
 
       <section class="modal-overlay" id="overlay">
-
-          <div class="modal">
-
-              <div class="modal-header">
-                  <h2 id="title-header-modal">Cadastrar um ramen</h2>
-                  <a onclick="fecharModalCadastro()" class="close-modal">x</a>
-              </div>
-
-              <div class="modal-body">
-                  <div>
-                      <input type="hidden" id="id"> 
-                      <input type="text" name="sabor" id="sabor" placeholder="Sabor do Ramen">
-                      <input type="number" name="preco" id="preco" placeholder="Preço do Ramen">
-                      <textarea type="text" name="descricao" id="descricao" placeholder="Descrição do Ramen"
-                          rows="5"></textarea>
-                      <input type="text" name="foto" id="foto" placeholder="Link da Foto do Ramen">
-                      <button  id="button-form-modal" onclick="createRamen()">Cadastrar</button>
-                  </div>
-              </div>
+        <div class="modal">
+          <div class="modal-header">
+            <h2 id="title-header-modal">Cadastrar um ramen</h2>
+            <a onclick="fecharModalCadastro()" class="close-modal">x</a>
           </div>
+
+          <div class="modal-body">
+            <div>
+              <input type="hidden" id="id" />
+              <input
+                type="text"
+                name="sabor"
+                id="sabor"
+                placeholder="Sabor do Ramen"
+              />
+              <input
+                type="number"
+                name="preco"
+                id="preco"
+                placeholder="Preço do Ramen"
+              />
+              <textarea
+                type="text"
+                name="descricao"
+                id="descricao"
+                placeholder="Descrição do Ramen"
+                rows="5"
+              ></textarea>
+              <input
+                type="text"
+                name="foto"
+                id="foto"
+                placeholder="Link da Foto do Ramen"
+              />
+              <button id="button-form-modal" onclick="createRamen()">
+                Cadastrar
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="modal-overlay" id="overlay-delete">
         <div class="modal">
-            <div class="modal-header">
-                <h2 id="title-header-modal">Confirmação de deleção</h2>
-                <a onclick="fecharModalDelete()" class="close-modal">x</a>
+          <div class="modal-header">
+            <h2 id="title-header-modal">Confirmação de deleção</h2>
+            <a onclick="fecharModalDelete()" class="close-modal">x</a>
+          </div>
+          <div class="modal-body-delete">
+            <p>Deseja realmente apagar essa ramen?</p>
+            <div class="btns_delete">
+              <button
+                class="btn_delete_no btn_delete"
+                onclick="fecharModalDelete()"
+              >
+                Não
+              </button>
+              <button class="btn_delete_yes btn_delete">Sim</button>
             </div>
-            <div class="modal-body-delete">
-                <p>Deseja realmente apagar essa ramen?</p>
-                <div class="btns_delete">
-                    <button class="btn_delete_no btn_delete" onclick="fecharModalDelete()">Não</button>
-                    <button class="btn_delete_yes btn_delete">Sim</button>
-                </div>
-            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-
-        <h2>Ramens Disponíveis:</h2>
-        <div class="Home__container">
-            <div class="RamenLista" id="ramenList">
-
-            </div>
-        </div>
+      <h2>Ramens Disponíveis:</h2>
+      <div class="Home__container">
+        <div class="RamenLista" id="ramenList"></div>
+      </div>
     </div>
 
-    
-
     <script src="/public/js/script.js"></script>
-</body>
+  </body>
 </html>

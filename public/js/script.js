@@ -1,5 +1,6 @@
 const baseUrl = "http://localhost:3000/ramens";
 
+//Função para exibir todas os itens do banco de dados
 async function findAllRamens() {
   const response = await fetch(`${baseUrl}/find-ramens`);
 
@@ -13,8 +14,8 @@ async function findAllRamens() {
             <div class="RamenListaItem__sabor">${ramens.sabor}</div>
             <div class="RamenListaItem__preco">R$ ${ramens.preco/*.toFixed(2)*/}</div>
             <div class="RamenListaItem__descricao">${ramens.descricao}</div>
-            <button class="Acoes__apagar btn" onclick="abrirModalDelete('${ramens._id}')">Apagar</button>
-            <button id="button-form-modal" type="button" class="default-button" onclick="abrirModalCadastro('${ramens._id}')">Alterar</button>
+            <button class="RamenListaButton__ ApagarButton" onclick="abrirModalDelete('${ramens._id}')">Apagar</button>
+            <button id="button-form-modal" type="button" class="RamenListaButton__ AlterarButton" onclick="abrirModalCadastro('${ramens._id}')">Alterar</button>
           </div>
             <img class="RamenListaItem__foto" src=${ramens.foto} alt=${`Ramen de ${ramens.sabor}`} />
           </div>`
@@ -28,7 +29,7 @@ async function findAllRamens() {
 findAllRamens();
 
 
-
+//Função para exibir Item por ID
 const findRamensById = async () => {
   const id = document.getElementById("idRamen").value;
 
@@ -50,7 +51,6 @@ const findRamensById = async () => {
   </div>`;
 };
 
-//findRamensById();
 
 
 //MODAL

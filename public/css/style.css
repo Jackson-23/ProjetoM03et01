@@ -74,7 +74,7 @@ html {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
   padding: 10px;
-  width: 315px;
+  width: 375px;
   display: flex;
   justify-content: space-around;
 }
@@ -119,8 +119,34 @@ html {
 
 .RamenListaItem__foto {
   height: 150px;
-  margin-right: -60px;
+
 }
+
+.RamenListaButton__{
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  padding: 0.4rem;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 0.2rem;
+  width: 100px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 1rem;
+}
+
+/*.RamenListaButton__,*/
+.ApagarButton:hover{
+  background-color: #ff0000;
+  color: #ffffff;
+}
+
+.AlterarButton:hover{
+  background-color: #005fd3;
+  color: #ffffff;
+}
+
 
 
 
@@ -143,7 +169,7 @@ div#idRamen {
   border-radius: 0.2rem;
 }
 
-button#idRamenButton {
+button.RamenButton {
   background-color: transparent;
   border: 2px solid #ffffff;
   padding: 0.4rem;
@@ -157,9 +183,14 @@ button#idRamenButton {
   font-size: 1rem;
 }
 
-button#idRamenButton:hover {
-  background-color: #d3c100;
-  color: #ffffff;
+button.ButtonProcurar:hover {
+  background-color: #dac800;
+  color: #000000;
+}
+
+button.ButtonCadastrar:hover {
+  background-color: #15d300;
+  color: #000000;
 }
 
 div#ramen-escolhida-input-espaco {
