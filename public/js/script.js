@@ -32,24 +32,22 @@ findAllRamens();
 //Função para exibir Item por ID
 const findRamensById = async () => {
   const id = document.getElementById("idRamen").value;
-
   const response = await fetch(`${baseUrl}/find-ramens/${id}`);
-
   const ramen = await response.json();
-
   const ramenEscolhidaDiv = document.getElementById("ramenEscolhida");
-
+  console.log("ramenEscolhidaDiv=" + ramenEscolhidaDiv);
+  
   ramenEscolhidaDiv.innerHTML = `<div class="RamenCardItem">
     <div>
       <div class="RamenCardItem__sabor">${ramen.sabor}</div>
-      <div class="RamenCardItem__preco">R$ ${ramen.preco.toFixed(2)}</div>
+      <div class="RamenCardItem__preco">R$ ${ramen.preco}</div>
       <div class="RamenCardItem__descricao">${ramen.descricao}</div>
     </div>
-      <img class="RamenCardItem__foto" src=${
-        ramen.foto
-      } alt=${`Ramen de ${ramen.sabor}`} />
+      <img class="RamenCardItem__foto" src=${ramen.foto} alt=${`Ramen de ${ramen.sabor}`} />
   </div>`;
 };
+
+
 
 
 
